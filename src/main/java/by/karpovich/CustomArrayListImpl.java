@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CustomArrayListImpl<E> implements CustomArrayList<E> {
 
     private Object[] arrayOfElements;
-    private final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 10;
     private int size = 0;
 
     public CustomArrayListImpl() {
@@ -13,23 +13,24 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     }
 
     public CustomArrayListImpl(int initialCapacity) {
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("Incorrect value of capacity");
-        }
         if (initialCapacity > 0) {
             this.arrayOfElements = new Object[initialCapacity];
+        }
+        if (initialCapacity < 0) {
+            throw new IllegalArgumentException("Incorrect value of capacity");
         } else {
             this.arrayOfElements = new Object[0];
         }
     }
 
     @Override
-    public void add(E element) {
+    public boolean add(E element) {
         if (size == arrayOfElements.length) {
             increaseCapacity();
         }
-        arrayOfElements[size] = element;
-        size++;
+        arrayOfElements[size++] = element;
+
+        return true;
     }
 
     @Override
@@ -46,24 +47,32 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E get(int index) {
         checkValidityOfIndex(index);
         return (E) arrayOfElements[index];
     }
 
     @Override
-    public void remove(E element) {
-        int ind = 0;
-        for (int i = 0; i < size; i++) {
-            if (arrayOfElements[i].equals(element)) {
-                ind = i;
-                break;
-            }
-        }
-        if (ind != 0) {
+    public boolean remove(E element) {
+        int position = getIndex(element);
 
+        if (position < 0) {
+            return false;
         }
+        checkValidityOfIndex(position);
 
+        Object[] newArray = new Object[size - 1];
+        for (int i = 0; i < position; i++) {
+            newArray[i] = arrayOfElements[i];
+        }
+        for (int i = position; i < newArray.length; i++) {
+            newArray[i] = arrayOfElements[i + 1];
+        }
+        size--;
+
+        arrayOfElements = newArray;
+        return true;
     }
 
     @Override
@@ -73,9 +82,16 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     }
 
     @Override
-    public void set(int index, E element) {
+    public E set(int index, E element) {
         checkValidityOfIndex(index);
         arrayOfElements[index] = element;
+
+        return get(index);
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 
     private void checkValidityOfIndex(int index) {
@@ -93,8 +109,16 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
         arrayOfElements = newArray;
     }
 
-    public int getSize() {
-        return size;
+    private int getIndex(E element) {
+        if (element == null) {
+            return -1;
+        }
+        for (int i = 0; i < size; i++) {
+            if (arrayOfElements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override

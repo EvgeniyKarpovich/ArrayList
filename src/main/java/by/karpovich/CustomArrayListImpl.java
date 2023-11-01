@@ -47,7 +47,6 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public E get(int index) {
         checkValidityOfIndex(index);
         return (E) arrayOfElements[index];
@@ -77,7 +76,9 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
 
     @Override
     public void clear() {
-        arrayOfElements = new Object[DEFAULT_CAPACITY];
+        for (int i = 0; i < size; i++) {
+            arrayOfElements[i] = null;
+        }
         size = 0;
     }
 

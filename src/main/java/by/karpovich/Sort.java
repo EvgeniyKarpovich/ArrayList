@@ -2,11 +2,20 @@ package by.karpovich;
 
 import java.util.Comparator;
 
+/**
+ * This class provides a static method to sort a CustomArrayList using the quicksort algorithm.
+ */
 public class Sort {
 
     private Sort() {
     }
 
+    /**
+     * Sorts the elements in the specified CustomArrayList in ascending order according to the specified comparator.
+     *
+     * @param customArrayList - the CustomArrayList to be sorted
+     * @param comparator      - the comparator to determine the order of the elements
+     */
     public static <E> void sort(CustomArrayListImpl<E> customArrayList, Comparator<E> comparator) {
         quickSortHelper(customArrayList, 0, customArrayList.getSize() - 1, comparator);
     }

@@ -7,9 +7,6 @@ import java.util.Comparator;
  */
 public class Sort {
 
-    private Sort() {
-    }
-
     /**
      * Sorts the elements in the specified CustomArrayList in ascending order according to the specified comparator.
      *
@@ -48,5 +45,8 @@ public class Sort {
         E temp = customArrayList.get(i);
         customArrayList.set(i, customArrayList.get(j));
         customArrayList.set(j, temp);
+    }
+
+    private Sort() {
     }
 }

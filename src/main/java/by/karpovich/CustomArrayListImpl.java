@@ -1,5 +1,7 @@
 package by.karpovich;
 
+import java.util.Arrays;
+
 /**
  * Implementation of a custom ArrayList data structure.
  * This class provides methods to add, get, remove, and modify elements in the list.
@@ -32,8 +34,8 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     /**
      * Creates a new empty list  with a specified capacity of 10
      *
-     * @param initialCapacity – The initial capacity of the list
-     * @throws IllegalArgumentException – If the specified initial capacity is not  valid
+     * @param initialCapacity – the initial capacity of the list
+     * @throws IllegalArgumentException – if the specified initial capacity is not  valid
      */
     public CustomArrayListImpl(int initialCapacity) {
         if (initialCapacity > 0) {
@@ -48,9 +50,10 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
 
     /**
      * Adds the specified element the end of the list.
+     * If there is not enough space to increase the array
      *
-     * @param element - Element to be added to this list
-     * @return True
+     * @param element - element to be added to this list
+     * @return true - if element was added
      */
     @Override
     public boolean add(E element) {
@@ -64,10 +67,11 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
 
     /**
      * Inserts the element in this list  in the specified position.
+     * If there is not enough space to increase the array
      *
-     * @param index   – Index of list  to be added
-     * @param element – Element to be inserted
-     * @throws IndexOutOfBoundsException If  the index is not valid
+     * @param index   – index of list  to be added
+     * @param element – element to be inserted
+     * @throws IndexOutOfBoundsException - if the index is out of bounds
      */
     @Override
     public void add(int index, E element) {
@@ -85,9 +89,9 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     /**
      * Returns the element at the specified position in the list.
      *
-     * @param index - Index of element which need to get
-     * @return The element at the specified position in this list
-     * @throws IndexOutOfBoundsException If  the index is not valid
+     * @param index - index of element which need to get
+     * @return the element at the specified position in this list
+     * @throws IndexOutOfBoundsException - if the index is out of bounds
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -99,9 +103,9 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     /**
      * Removes the first occurrence of the specified element from the list.
      *
-     * @param element - Element to be removed from this list, if present
-     * @return True if this list contained the specified element
-     * @throws IndexOutOfBoundsException If  the index is not valid
+     * @param element - element to be removed from this list, if present
+     * @return true if this list contained the specified element
+     * @throws IndexOutOfBoundsException - if the index is out of bounds
      */
     @Override
     public boolean remove(E element) {
@@ -139,10 +143,10 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     /**
      * Replaces the element at the specified position in the list with the specified element.
      *
-     * @param element - Element to be set
-     * @param index   - The index in the array to be set
-     * @return True if this list contained the specified element
-     * @throws IndexOutOfBoundsException If  the index is not valid
+     * @param element - element to be set
+     * @param index   - the index in the array to be set
+     * @return true if this list contained the specified element
+     * @throws IndexOutOfBoundsException - if the index is out of bounds
      */
     @Override
     public E set(int index, E element) {
@@ -155,7 +159,7 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
     /**
      * Returns the number of elements in the list.
      *
-     * @return Returns the number of elements in the list.
+     * @return returns the number of elements in the list.
      */
     @Override
     public int getSize() {
@@ -187,5 +191,13 @@ public class CustomArrayListImpl<E> implements CustomArrayList<E> {
             }
         }
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomArrayListImpl{" +
+                "array=" + Arrays.toString(array) +
+                ", size=" + size +
+                '}';
     }
 }

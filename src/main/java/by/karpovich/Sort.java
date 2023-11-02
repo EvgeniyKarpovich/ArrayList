@@ -17,6 +17,9 @@ public class Sort {
      * @param comparator      - the comparator to determine the order of the elements
      */
     public static <E> void sort(CustomArrayListImpl<E> customArrayList, Comparator<E> comparator) {
+        if (customArrayList.getSize() <= 1) {
+            return;
+        }
         quickSortHelper(customArrayList, 0, customArrayList.getSize() - 1, comparator);
     }
 

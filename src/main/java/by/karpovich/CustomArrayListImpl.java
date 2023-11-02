@@ -1,7 +1,5 @@
 package by.karpovich;
 
-import java.util.Arrays;
-
 /**
  * Implementation of a custom ArrayList data structure.
  * This class provides methods to add, get, remove, and modify elements in the list.

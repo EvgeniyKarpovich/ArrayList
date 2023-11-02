@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"by.karpovich","l":"CustomArrayList"},{"p":"by.karpovich","l":"CustomArrayListImpl"},{"p":"by.karpovich","l":"Sort"}];updateSearchResults();

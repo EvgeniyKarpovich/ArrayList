@@ -17,34 +17,59 @@ public class Sort {
         if (customArrayList.getSize() <= 1) {
             return;
         }
-        quickSortHelper(customArrayList, 0, customArrayList.getSize() - 1, comparator);
+        quickSort(customArrayList, 0, customArrayList.getSize() - 1, comparator);
     }
 
-    private static <E> void quickSortHelper(CustomArrayListImpl<E> customArrayList, int low, int high, Comparator<E> comparator) {
+    public static <E extends Comparable<? super E>> void sort(CustomArrayListImpl<E> list) {
+        quickSort(list, 0, list.getSize() - 1);
+    }
+
+    private static <E extends Comparable<? super E>> void quickSort(CustomArrayListImpl<E> list, int low, int high) {
         if (low < high) {
-            int pivotIndex = partition(customArrayList, low, high, comparator);
-            quickSortHelper(customArrayList, low, pivotIndex - 1, comparator);
-            quickSortHelper(customArrayList, pivotIndex + 1, high, comparator);
+            int pivotIndex = partition(list, low, high);
+            quickSort(list, low, pivotIndex - 1);
+            quickSort(list, pivotIndex + 1, high);
         }
     }
 
-    private static <E> int partition(CustomArrayListImpl<E> customArrayList, int low, int high, Comparator<E> comparator) {
-        E pivot = customArrayList.get(high);
+    private static <E> void quickSort(CustomArrayListImpl<E> list, int low, int high, Comparator<E> comparator) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high, comparator);
+            quickSort(list, low, pivotIndex - 1, comparator);
+            quickSort(list, pivotIndex + 1, high, comparator);
+        }
+    }
+
+    private static <E extends Comparable<? super E>> int partition(CustomArrayListImpl<E> list, int low, int high) {
+        E pivot = list.get(high);
         int i = low - 1;
         for (int j = low; j < high; j++) {
-            if (comparator.compare(customArrayList.get(j), pivot) <= 0) {
+            if (list.get(j).compareTo(pivot) <= 0) {
                 i++;
-                swap(customArrayList, i, j);
+                swap(list, i, j);
             }
         }
-        swap(customArrayList, i + 1, high);
+        swap(list, i + 1, high);
         return i + 1;
     }
 
-    private static <E> void swap(CustomArrayListImpl<E> customArrayList, int i, int j) {
-        E temp = customArrayList.get(i);
-        customArrayList.set(i, customArrayList.get(j));
-        customArrayList.set(j, temp);
+    private static <E> int partition(CustomArrayListImpl<E> list, int low, int high, Comparator<E> comparator) {
+        E pivot = list.get(high);
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (comparator.compare(list.get(j), pivot) <= 0) {
+                i++;
+                swap(list, i, j);
+            }
+        }
+        swap(list, i + 1, high);
+        return i + 1;
+    }
+
+    private static <E> void swap(CustomArrayListImpl<E> list, int i, int j) {
+        E temp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, temp);
     }
 
     private Sort() {
